@@ -53,3 +53,19 @@ sns.heatmap(correlation_matrix,annot=True,cmap='coolwarm',
             fmt='.2f')
 plt.title('Correlation Matrix of Energy Consumption and Weather Variables')
 plt.show()
+#Grouping by facilit_type and calculating average site_eui for each type 
+building energy_energy_consumption = df.groupby('facility_type')['site_eui'].mean().sort_value(ascending =False).reset_index()
+
+#Selecting the top 10 most energy-consuming building types
+top_building_types = building_energy_consumption.head(10)
+
+#Plotting 
+plt.figure(figsize=(12,4),facecolor='white')
+plt.barh(top_building_types['facility_type'],top_building_types['site_eui'],color='skyblue')
+plt.title('top 10 building types by average energy consumption')
+plt.xlabel('average Site EUI')
+plt.ylabel('building Type')
+plt.gca().invert_yaxis() #to display the highest consuming building at the top
+plt.show()
+
+
